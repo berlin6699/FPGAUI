@@ -1,0 +1,77 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 7,
+  "data": [
+    {
+      "id": 1,
+      "username": "爸爸",
+      "age": 40,
+      "sex": "男",
+      "height": 180,
+      "weight": 75,
+      "sign": "责任与坚强，是我的座右铭。",
+      "score": 90
+    },
+    {
+      "id": 2,
+      "username": "妈妈",
+      "age": 38,
+      "sex": "女",
+      "height": 165,
+      "weight": 60,
+      "sign": "温柔中带着无限的力量。",
+      "score": 95
+    },
+    {
+      "id": 3,
+      "username": "爷爷",
+      "age": 70,
+      "sex": "男",
+      "height": 170,
+      "weight": 68,
+      "sign": "时光流逝，阅尽千帆，依然初心未变。",
+      "score": 85
+    },
+    {
+      "id": 4,
+      "username": "奶奶",
+      "age": 68,
+      "sex": "女",
+      "height": 160,
+      "weight": 55,
+      "sign": "岁月静好，心怀感恩，笑看人生。",
+      "score": 88
+    },
+    {
+      "id": 5,
+      "username": "姥姥",
+      "age": 66,
+      "sex": "女",
+      "height": 158,
+      "weight": 54,
+      "sign": "温暖如春，包容一切。",
+      "score": 89
+    },
+    {
+      "id": 6,
+      "username": "姥爷",
+      "age": 68,
+      "sex": "男",
+      "height": 172,
+      "weight": 65,
+      "sign": "岁月积淀了智慧，分享是我的快乐。",
+      "score": 87
+    },
+    {
+      "id": 7,
+      "username": "小明",
+      "age": 15,
+      "sex": "男",
+      "height": 170,
+      "weight": 60,
+      "sign": "梦想无限大，我要飞得更高！",
+      "score": 92
+    }
+  ]
+}

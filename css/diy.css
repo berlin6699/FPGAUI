@@ -1,0 +1,104 @@
+.grid-item {
+    height: 64vh; /* 使用视口高度单位 */
+    border: 1px solid #ccc;
+    margin-bottom: 10px; /* 块之间的间距 */
+    border-radius: 8px;
+}
+.grid-item34 {
+    height: 34vh; /* 使用视口高度单位 */
+    border: 1px solid #ccc;
+    margin-bottom: 10px; /* 块之间的间距 */
+}
+.column-gap {
+    margin-right: 10px; /* 设置缝隙大小 */
+}
+.layui-col-full {
+    flex: 1; /* 填满剩余空间 */
+}
+.bg1 { background-color: #ffffff; }
+.bg2 { background-color: #e0f6ef; }
+.bg3 { background-color: #dff0d8; }
+.bg4 { background-color: #f2dede; }
+.bg5 { background-color: #e1efdd; }
+.bg6 { background-color: #f3e4c8; }
+.bg7 { background-color: #f5f5f5; }
+.bg8 { background-color: #f2dede; }
+.bg9 { background-color: #dff0d8; }
+.mainbg { background-color: #eee; }
+
+/* Adjust the margin for the main content */
+.main-content {
+    margin-left: 210px; /* Assuming the sidebar width is 200px */
+    margin-right: 10px;
+    display: flex;
+}
+
+.content {
+    display: none; /* 默认隐藏内容 */
+}
+.active {
+    display: block; /* 显示活动内容 */
+}
+
+.custom-select {
+
+    margin-top: 1px;
+    width: 250px; /* 设置选择框宽度 */
+    border: 1px solid #ccc; /* 边框颜色 */
+    border-radius: 5px; /* 圆角 */
+    background-color: #f8f8f8; /* 背景色 */
+    padding: 20px; /* 内边距 */
+    margin-left: 45px;
+}
+.custom-select:focus {
+    border-color: #5cb85c; /* 焦点时的边框颜色 */
+    box-shadow: 0 0 5px rgba(92, 184, 92, 0.5); /* 焦点时的阴影 */
+}
+
+label {
+    margin-top: 30px; /* 标签和选择框之间的间距 */
+    font-size: 15px; /* 标签字体大小 */
+    font-weight: bold; /* 设置字体为粗体 */
+    color: #333; /* 标签颜色 */
+    margin-left: 120px;
+}
+
+.chat-window {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    max-height: 570px; /* 控制聊天窗口的高度 */
+    overflow-y: auto; /* 允许垂直滚动 */
+    margin-bottom: 10px;
+}
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 80%; /* 限制消息宽度 */
+}
+.user1 {
+    background-color: #f1f1f1; /* 用户1消息背景 */
+    align-self: flex-start; /* 让用户1的消息左对齐 */
+}
+.user2 {
+    background-color: #d1ffd1; /* 用户2消息背景 */
+    align-self: flex-end; /* 让用户2的消息右对齐 */
+}
+.input-area {
+    display: flex; /* 使用flex布局 */
+    align-items: center; /* 垂直居中 */
+}
+.input-area textarea {
+    margin-left: 30px;
+    width: 70%; /* 文本框宽度 */
+    margin-right: 10px; /* 文本框和按钮之间的间距 */
+    resize: none; /* 禁止调整大小 */
+}
+
+.child75 {
+    height: 75%; /* 子容器高度为父容器的75% */
+}
+.child25 {
+    height: 25%; /* 子容器高度为父容器的75% */
+}

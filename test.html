@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康提示与ECharts示例</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
+    <style>
+        #echartContainer {
+            width: 100%;
+            height: 400px; /* 设置ECharts的高度 */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h3 style="text-align: center; color: #333;">AI 医护助理的健康提示</h3>
+<div class="health-tips-container" style="margin-top: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+    <ul id="tipsList" style="list-style-type: none; padding-left: 0;">
+        <!-- 健康提示将显示在这里 -->
+    </ul>
+</div>
+
+<div style="margin-top: 20px; text-align: center;">
+    <button id="refreshButton" class="layui-btn layui-btn-normal">想换个建议？</button>
+</div>
+
+<!-- ECharts 容器 -->
+<div id="echartContainer"></div>
+
+<script>
+    // 健康提示示例数据
+    const healthTips = [
+        "每天喝足够的水，保持身体水分充足。",
+        "定期进行适量的运动，有助于维持健康。",
+        "保持良好的作息习惯，确保充足的睡眠。",
+        "均衡饮食，多吃水果和蔬菜。",
+        "定期体检，及时发现潜在的健康问题。"
+    ];
+
+    // 随机获取健康提示
+    document.getElementById('refreshButton').addEventListener('click', function() {
+        const randomTip = healthTips[Math.floor(Math.random() * healthTips.length)];
+        const li = document.createElement('li');
+        li.textContent = randomTip;
+        document.getElementById('tipsList').appendChild(li);
+    });
+
+    // ECharts 相关代码
+    layui.use(['element'], function() {
+        const element = layui.element;
+
+        const myChart = echarts.init(document.getElementById('echartContainer'));
+        const option = {
+            title: {
+                text: '基本雷达图'
+            },
+            legend: {
+                data: ['分配预算', '实际支出']
+            },
+            radar: {
+                indicator: [
+                    { name: '销售', max: 6500 },
+                    { name: '行政', max: 16000 },
+                    { name: '信息技术', max: 30000 },
+                    { name: '客户支持', max: 38000 },
+                    { name: '开发', max: 52000 },
+                    { name: '市场', max: 25000 }
+                ]
+            },
+            series: [
+                {
+                    name: '预算与支出对比',
+                    type: 'radar',
+                    data: [
+                        {
+                            value: [4200, 3000, 20000, 35000, 50000, 18000],
+                            name: '分配预算'
+                        },
+                        {
+                            value: [5000, 14000, 28000, 26000, 42000, 21000],
+                            name: '实际支出'
+                        }
+                    ]
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    });
+</script>
+
+</body>
+</html>

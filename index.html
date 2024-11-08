@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>家庭健康管理平台</title>
+
+    <link href="layui/css/layui.css" rel="stylesheet">
+
+    <!-- 美化选择框-->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 引入刚刚下载的 ECharts 文件 -->
+    <script src="js/echarts.min.js"></script>
+
+    <!-- 项目中自定义的style样式-->
+    <link rel="stylesheet" href="css/diy.css">
+
+    <script src="js/jquery.min.js"></script>
+
+
+
+    <style>
+    </style>
+</head>
+<body>
+<!-- HTML Content -->
+<script src="layui/layui.js"></script>
+<script src="js/heartchart.js"></script>
+<script src="js/family.js"></script>
+<script src="js/chooseperson.js"></script>
+<script src="js/bloodgas.js"></script>
+<script src="js/bloodpressure.js"></script>
+<script src="js/breath.js"></script>
+<!--<script src="js/chat.js"></script>-->
+<script src="js/save.js"></script>
+<script src="js/scorechart.js"></script>
+
+
+
+
+<!--左侧导航栏-->
+<ul class="layui-nav layui-nav-tree layui-nav-side" style="width: 200px;">
+    <li class="layui-nav-item layui-nav-itemed">
+        <a href="javascript:void(0);" onclick="showContent('home')">主页</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:void(0);" onclick="showContent('family')">家庭成员</a>
+    </li>
+
+</ul>
+
+
+<!--主页布局-->
+<div id="home" class="content active mainbg">
+    <div class="layui-row main-content">
+        <div class="layui-col-md9 column-gap" >
+            <div id="chart_heart" class="layui-col-md9 bg1 grid-item "></div>
+            <div id="probabilities" class="layui-col-md3 bg2 grid-item">
+                <h3 style="font-size: 30px; margin-top: 20px; margin-left: 10px"><i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #6053d3; margin-top: 20px; margin-right: 10px; margin-left: 60px;"></i>分类概率:</h3>
+<!--                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"N"概率: <strong>0.8</strong></p>-->
+<!--                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"B"概率: <strong>0.10</strong></p>-->
+<!--                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"V"概率: <strong>0.05</strong></p>-->
+<!--                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"K"概率: <strong>0.05</strong></p>-->
+                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"N"概率: <strong id="prob-n"></strong></p>
+                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"B"概率: <strong id="prob-b"></strong></p>
+                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"V"概率: <strong id="prob-v"></strong></p>
+                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px">"K"概率: <strong id="prob-k"></strong></p>
+
+
+                <h3 style="font-size: 30px; margin-top: 3vh; margin-left: 10px"><i class="layui-icon layui-icon-heart-fill" style="font-size: 30px; color: #dc1515; margin-right: 10px; margin-left: 60px;"></i>当前心率:</h3>
+                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px"><strong id="rate"></strong></p>
+
+                <h3 style="font-size: 30px; margin-top: 3vh; margin-left: 10px"><i class="layui-icon layui-icon-ok-circle" style="font-size: 30px; color: #dc1515; margin-right: 10px; margin-left: 60px;"></i>心电得分:</h3>
+                <p style="font-size: 20px; margin-top: 10px; margin-right: 10px;margin-left: 110px"><strong id="score"></strong></p>
+
+                <button id="saveButton" style="margin-top: 20px; margin-left: 100px; padding: 10px 20px; font-size: 16px; background-color: #5cb85c; color: white; border: none; border-radius: 5px;">
+                    进行健康评测
+                </button>
+
+
+
+                <label for="exampleSelect">当前测量人：</label>
+                <span id="selectedPerson" style="margin-left: 10px; font-weight: bold;"></span> <!-- 显示选择的测量人 -->
+                <select class="custom-select" id="exampleSelect">
+                    <option disabled selected>请选择测量人</option>
+                    <option value="dad">爸爸</option>
+                    <option value="mom">妈妈</option>
+                    <option value="grandpa">爷爷</option>
+                    <option value="grandma">奶奶</option>
+                    <option value="lola">姥姥</option>
+                    <option value="lolo">姥爷</option>
+                    <option value="xiaoming">小明</option>
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="layui-col-full grid-item bg1" id="healthTipsDisplay" style="padding: 20px; border-radius: 10px; background-color: #f9f9f9;">
+            <h3 style="text-align: center; color: #333;">AI 医护助理的健康提示</h3>
+            <div class="health-tips-container" style="margin-top: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                <ul id="tipsList" style="list-style-type: none; padding-left: 0;">
+                    <!-- 健康提示将显示在这里 -->
+                </ul>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <input type="text" id="inputText" placeholder="输入你的问题" style="width: 80%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;" />
+                <button id="refreshButton" class="layui-btn layui-btn-normal">想换个建议？</button>
+            </div>
+
+            <div id="scorechart" style="width: 100%; height: 250px; margin-top: 20px;"></div>
+        </div>
+
+
+
+    </div>
+
+    <div class="layui-row main-content">
+        <div class="layui-col-md12 column-gap grid-item34 bg1">
+            <div class="layui-col-md3 bg1 grid-item34">
+                <div class="layui-row child75" style="display: flex;"> <!-- 设置总高度 -->
+                    <div class="layui-col-md2 bg1" style="display: flex; align-items: center; justify-content: center;">
+                        <i class="layui-icon layui-icon-water" style="font-size: 30px;"></i> <!-- 插入水滴图标 -->
+                    </div>
+                    <div class="layui-col-md8 bg1" id="bloodgas" style="display: flex; align-items: center; justify-content: center;"><!-- 插入血氧仪表盘 --></div>
+                    <div class="layui-col-md2 bg1" style="display: flex; align-items: center; justify-content: center;">
+                        <i class="layui-icon layui-icon-water" style="font-size: 30px;"></i> <!-- 插入水滴图标 -->
+                    </div>
+                </div>
+
+                <div class="layui-row child25 bg1" style="display: flex; align-items: center; justify-content: center;">
+                    <h3 id="bloodOxygenDisplay" style="font-size: 25px; color: #000;">当前血氧浓度：100 很好！</h3>
+                </div>
+
+            </div>
+
+            <div class="layui-col-md3 bg1 grid-item34">
+                <div class="layui-row child75" style="display: flex;"> <!-- 设置总高度 -->
+                    <div class="layui-col-md2 bg1" style="display: flex; align-items: center; justify-content: center;">
+                        <i class="layui-icon layui-icon-test" style="font-size: 30px;"></i> <!-- 插入水滴图标 -->
+                    </div>
+                    <div class="layui-col-md8 bg1" id="bloodpressure" style="display: flex; align-items: center; justify-content: center;"><!-- 插入血压表盘 --></div>
+                    <div class="layui-col-md2 bg1" style="display: flex; align-items: center; justify-content: center;">
+                        <i class="layui-icon layui-icon-test" style="font-size: 30px;"></i> <!-- 插入水滴图标 -->
+                    </div>
+                </div>
+
+                <div class="layui-row child25 bg1" style="display: flex; align-items: center; justify-content: center;">
+                    <h3 id="bloodPressureDisplay" style="font-size: 25px; color: #000;">当前血压：120/80 mmHg (正常)</h3>
+                </div>
+            </div>
+
+
+            <div class="layui-col-md6 bg1 grid-item34">
+                <div class="layui-col-md8 bg1" style="height: 100%; display: flex; align-items: center; justify-content: center;" id="breathchart"></div>
+                <div class="layui-col-md4 bg2" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h3 style="font-size: 30px; color: #000; margin: 0;">
+                        <i class="layui-icon layui-icon-vercode" style="font-size: 25px; margin-right: 8px;"></i>
+                        呼吸质量：好
+                    </h3>
+                    <h3 style="font-size: 30px; color: #000; margin: 0;">
+                        <i class="layui-icon layui-icon-vercode" style="font-size: 25px; margin-right: 8px;"></i>
+                        呼吸得分：100
+                    </h3>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div id="family" class="main-content content bg2">
+    <div style="padding: 16px;">
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+    </div>
+</div>
+
+<script>
+    function showContent(contentId) {
+        // 隐藏所有内容
+        const contents = document.querySelectorAll('.content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // 显示选定的内容
+        const selectedContent = document.getElementById(contentId);
+        if (selectedContent) {
+            selectedContent.classList.add('active');
+        }
+    }
+</script>
+
+
+<script>
+    // 存储心电数据
+    document.getElementById('saveButton').addEventListener('click', function() {
+        layer.msg('开始测量健康指标！'); // 使用 Layer 弹出提示
+
+        // 向服务器发送请求
+        fetch('http://121.43.149.242:7999/begin-measurement', {
+            method: 'POST', // 或 'GET'，根据你的需求
+            headers: {
+                'Content-Type': 'application/json', // 发送JSON格式数据
+            },
+            body: JSON.stringify({ action: 'startMeasurement' }) // 发送的数据
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('网络响应不正确');
+                }
+                return response.json(); // 解析JSON数据
+            })
+            .then(data => {
+                console.log('成功:', data);
+            })
+            .catch((error) => {
+                console.error('错误:', error);
+            });
+    });
+</script>
+
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getData">获取当前页数据</button>
+        <button class="layui-btn layui-btn-sm" id="dropdownButton">
+            下拉按钮
+            <i class="layui-icon layui-icon-down layui-font-12"></i>
+        </button>
+        <button class="layui-btn layui-btn-sm layui-btn-primary" id="rowMode">
+            <span>{{= d.lineStyle ? '多行' : '单行' }}模式</span>
+            <i class="layui-icon layui-icon-down layui-font-12"></i>
+        </button>
+    </div>
+</script>
+
+<script type="text/html" id="toolDemo">
+    <div class="layui-clear-space">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="more">
+            更多
+            <i class="layui-icon layui-icon-down"></i>
+        </a>
+    </div>
+</script>
+
+
+<!--显示当前测量人-->
+<script>
+    document.getElementById("exampleSelect").addEventListener("change", function() {
+        var selectedValue = this.options[this.selectedIndex].text; // 获取选中的文本
+        document.getElementById("selectedPerson").textContent = selectedValue; // 直接显示选中的测量人
+    });
+</script>
+
+
+
+<!--把AI返回的内容加到文本框里-->
+<script>
+    document.getElementById('refreshButton').addEventListener('click', async function() {
+        const inputText = document.getElementById('inputText').value; // 获取输入框中的文本
+        if (!inputText) {
+            layer.msg('请输入你的问题！');
+            return; // 如果输入框为空，弹出提示并返回
+        }
+
+
+        // 创建发送给AI的提问内容
+        const aiInputText = `${inputText}（请回答不超过150字）`;
+
+
+        const response = await fetch('http://121.43.149.242:3000/begin-measurement', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ input: aiInputText })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const messageContent = data.message.choices[0].message.content; // 获取content
+            console.log("OpenAI的响应内容:", messageContent); // 打印content
+
+            // 清空之前的内容
+            $('#tipsList').empty();
+
+            // 添加新的内容
+            $('#tipsList').append('<li style="padding: 8px; border-bottom: 1px solid #eee;">' + messageContent + '</li>');
+        } else {
+            console.error('请求失败:', response.statusText);
+            layer.msg('请求失败');
+        }
+    });
+</script>
+
+<!--读取分类概率-->
+<script>
+    // Fetch the JSON file
+    fetch('static/probably.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the HTML with the probabilities
+            document.getElementById('prob-n').textContent = data.N;
+            document.getElementById('prob-b').textContent = data.B;
+            document.getElementById('prob-v').textContent = data.V;
+            document.getElementById('prob-k').textContent = data.K;
+            document.getElementById('rate').textContent = data.RATE;
+            document.getElementById('score').textContent = data.SCORE;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+</script>
+</body>
+</html>
+
+
+
